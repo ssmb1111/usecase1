@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using UseCase1.Extensions;
 using UseCase1.GenericHttpClient;
 using UseCase1.Models;
 
@@ -18,10 +19,27 @@ public class RestCountriesController : ControllerBase
     }
 
     [HttpGet("all")]
-    public async Task<List<Country>?> GetAllCountriesParsed(string? str1, int? number, string? str2)
+    public async Task<List<Country>?> GetAllCountriesParsed(string? nameFilter, int? maxPopulationInMilions, string? sortOrder)
     {
         var result = await _client.Get<List<Country>>(_url + "all");
 
-        return result;
+        if (result == null) return null;
+
+        if (!string.IsNullOrWhiteSpace(nameFilter))
+        {
+            result = result.FilterByCommonName(nameFilter);
+        }
+
+        if (maxPopulationInMilions is not null)
+        {
+            result = result.FilterByPopulation((int)maxPopulationInMilions);
+        }
+
+        if (!string.IsNullOrWhiteSpace(sortOrder))
+        {
+            result = result.SortByCommonName(sortOrder);
+        }
+
+        return result.Paginate(10);
     }
 }
