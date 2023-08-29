@@ -61,9 +61,9 @@ namespace UseCase1.Test
         {
             var result = Countries.SortByCommonName("ascend");
 
-            Assert.AreEqual(result[0]?.Name?.Common, Countries[0]?.Name?.Common);
-            Assert.AreEqual(result[1]?.Name?.Common, Countries[5]?.Name?.Common);
-            Assert.AreEqual(result[2]?.Name?.Common, Countries[1]?.Name?.Common);
+            Assert.AreEqual(Countries[0]?.Name?.Common, result[0]?.Name?.Common);
+            Assert.AreEqual(Countries[5]?.Name?.Common, result[1]?.Name?.Common);
+            Assert.AreEqual(Countries[1]?.Name?.Common, result[2]?.Name?.Common);
         }
 
         [TestMethod]
@@ -71,9 +71,9 @@ namespace UseCase1.Test
         {
             var result = Countries.SortByCommonName("descend");
 
-            Assert.AreEqual(result[5]?.Name?.Common, Countries[0]?.Name?.Common);
-            Assert.AreEqual(result[4]?.Name?.Common, Countries[5]?.Name?.Common);
-            Assert.AreEqual(result[3]?.Name?.Common, Countries[1]?.Name?.Common);
+            Assert.AreEqual(Countries[0]?.Name?.Common, result[5]?.Name?.Common);
+            Assert.AreEqual(Countries[5]?.Name?.Common, result[4]?.Name?.Common);
+            Assert.AreEqual(Countries[1]?.Name?.Common, result[3]?.Name?.Common);
         }
 
         [TestMethod]
@@ -86,7 +86,7 @@ namespace UseCase1.Test
             }
             catch (InvalidOperationException e)
             {
-                Assert.AreEqual(e.Message, "Invalid order");
+                Assert.AreEqual("Invalid order", e.Message);
             }
         }
 
