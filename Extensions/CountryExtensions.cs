@@ -28,5 +28,10 @@ namespace UseCase1.Extensions
 
             throw new Exception("Invalid order");
         }
+
+        public static List<Country> Paginate(this List<Country> countries, int records)
+        {
+            return countries.Take(records).ToList();
+        }
     }
 }
