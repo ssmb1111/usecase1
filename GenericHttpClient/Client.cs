@@ -16,7 +16,7 @@ namespace UseCase1.GenericHttpClient
             _jsonOptions = options;
         }
 
-        private HttpClient CreateHttpClient()
+        private static HttpClient CreateHttpClient()
         {
             var client = new HttpClient();
 

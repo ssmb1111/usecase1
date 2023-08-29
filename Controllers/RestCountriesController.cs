@@ -8,20 +8,19 @@ namespace UseCase1.Controllers;
 [Route("[controller]")]
 public class RestCountriesController : ControllerBase
 {
-    private readonly ILogger<RestCountriesController> _logger;
     private readonly Client _client;
+    private readonly string _url;
 
-
-    public RestCountriesController(ILogger<RestCountriesController> logger, Client client)
+    public RestCountriesController(IConfiguration config, Client client)
     {
-        _logger = logger;
+        _url = config["Url"];
         _client = client;
     }
 
     [HttpGet("all")]
     public async Task<List<Country>?> GetAllCountriesParsed(string? str1, int? number, string? str2)
     {
-        var result = await _client.Get<List<Country>>("https://restcountries.com/v3.1/all");
+        var result = await _client.Get<List<Country>>(_url + "all");
 
         return result;
     }
