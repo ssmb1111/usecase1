@@ -26,7 +26,7 @@ namespace UseCase1.Extensions
                 return countries.OrderByDescending(x => x.Name?.Common).ToList();
             }
 
-            throw new Exception("Invalid order");
+            throw new InvalidOperationException("Invalid order");
         }
 
         public static List<Country> Paginate(this List<Country> countries, int records)
